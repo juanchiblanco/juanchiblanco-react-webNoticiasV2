@@ -5,28 +5,35 @@ import { Spinner } from "react-bootstrap";
 
 const Formulario = () => {
   const [noticias, setNoticias] = useState([]);
-  const [categoria, setCategoria] = useState('')
-  const [mostrarSpinner, setMostrarSpinner] = useState(true)
+  const [categoria, setCategoria] = useState("");
+  const [mostrarSpinner, setMostrarSpinner] = useState(true);
+  const [pais, setPais] = useState("");
 
   useEffect(() => {
-    if(categoria){obtenerNoticia();}
-  }, [categoria]);
+    if (categoria) {
+      obtenerNoticia();
+    }
+  }, [categoria, pais]);
 
   const selectCategoria = (e) => {
-    setCategoria(e.target.value)
-  }
+    setCategoria(e.target.value);
+  };
+
+  const selectPais = (e) => {
+    setPais(e.target.value);
+  };
 
   const obtenerNoticia = async () => {
     try {
-      setMostrarSpinner(true)
+      setMostrarSpinner(true);
       const respuesta = await fetch(
-        `https://newsdata.io/api/1/news?apikey=pub_39be840985964a1b9e2afa61a8e79d96&category=${categoria}`
+        `https://newsdata.io/api/1/news?apikey=pub_39be840985964a1b9e2afa61a8e79d96&category=${categoria}&country=${pais}`
       );
       if (respuesta.status === 200) {
         const datos = await respuesta.json();
-        setNoticias(datos.results)
+        setNoticias(datos.results);
       }
-      setMostrarSpinner(false)
+      setMostrarSpinner(false);
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +46,11 @@ const Formulario = () => {
           <Form className="my-4">
             <Form.Group className="d-flex gap-3">
               <Form.Label>Buscar por categoria:</Form.Label>
-              <Form.Select aria-label="defaultSelect" onChange={selectCategoria} value={categoria}>
+              <Form.Select
+                aria-label="defaultSelect"
+                onChange={selectCategoria}
+                value={categoria}
+              >
                 <option>Elige una opcion</option>
                 <option value="business">Business</option>
                 <option value="entertainment">Entertainment</option>
@@ -59,6 +70,43 @@ const Formulario = () => {
                 <option value="technology">Technology</option>
                 <option value="other">Other</option>
               </Form.Select>
+              <Form.Select
+                aria-label="defaultSelect"
+                onChange={selectPais}
+                value={pais}
+              >
+                <option value="">Elige un país</option>
+                <option value="us">United States</option>
+                <option value="ca">Canada</option>
+                <option value="mx">Mexico</option>
+                <option value="br">Brazil</option>
+                <option value="ar">Argentina</option>
+                <option value="gb">United Kingdom</option>
+                <option value="fr">France</option>
+                <option value="de">Germany</option>
+                <option value="it">Italy</option>
+                <option value="es">Spain</option>
+                <option value="nl">Netherlands</option>
+                <option value="be">Belgium</option>
+                <option value="ch">Switzerland</option>
+                <option value="at">Austria</option>
+                <option value="pt">Portugal</option>
+                <option value="ie">Ireland</option>
+                <option value="se">Sweden</option>
+                <option value="no">Norway</option>
+                <option value="dk">Denmark</option>
+                <option value="fi">Finland</option>
+                <option value="ru">Russia</option>
+                <option value="cn">China</option>
+                <option value="jp">Japan</option>
+                <option value="kr">South Korea</option>
+                <option value="in">India</option>
+                <option value="za">South Africa</option>
+                <option value="ng">Nigeria</option>
+                <option value="eg">Egypt</option>
+                <option value="au">Australia</option>
+                <option value="nz">New Zealand</option>
+              </Form.Select>
             </Form.Group>
           </Form>
         </div>
@@ -69,7 +117,7 @@ const Formulario = () => {
             <Spinner animation="grow" variant="light" />
           </div>
         ) : (
-          <ListaNoticias noticias={noticias}/>
+          <ListaNoticias noticias={noticias} />
         )}
       </article>
     </>
