@@ -7,7 +7,7 @@ const Noticia = ({noticia}) => {
       <Card.Header className="shadow bg-light text-dark h-100">
         <p className="fs-5 text-uppercase text-start">{noticia.country}</p>
         <img src={noticia.image_url
-|| "https://hsconsultinggroup.net/wp-content/themes/consultix/images/no-image-found-360x250.png"} alt={noticia.title} className="img-fluid"/>
+|| "https://hsconsultinggroup.net/wp-content/themes/consultix/images/no-image-found-360x250.png"} alt={noticia.title} className="img-fluid imgCard"/>
         <p className="lead text-center">{noticia.title} </p>
       </Card.Header>
       <Card.Body className="text-center border-top border-bottom border-light subtle h-100">
