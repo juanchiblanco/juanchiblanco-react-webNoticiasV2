@@ -27,7 +27,7 @@ const Formulario = () => {
     try {
       setMostrarSpinner(true);
       const respuesta = await fetch(
-        `https://newsdata.io/api/1/news?apikey=pub_39be840985964a1b9e2afa61a8e79d96&category=${categoria}&country=${pais}`
+        `https://newsdata.io/api/1/news?apikey=pub_39be840985964a1b9e2afa61a8e79d96&category=${categoria}&country=${pais}&language=es`
       );
       if (respuesta.status === 200) {
         const datos = await respuesta.json();
